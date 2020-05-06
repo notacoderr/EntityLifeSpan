@@ -19,16 +19,16 @@ use pocketmine\{
 
 class MainListener extends PluginBase implements Listener
 {	
-	private $timer, $general = false;
+	private $timer, $general;
 	
 	function onEnable() : void
 	{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveResource('timer.yml');
 		$cfg = new Config($this->getDataFolder() . "timer.yml", CONFIG::YAML);
-		if($cfg->get("general_mode"))
+		$this->general = $cfg->get("general_mode");
+		if($this->general)
 		{
-			$this->general = true;
 			$this->timer = $cfg->get("general_timer");
 			$this->getServer()->getLogger()->info("General Mode activated");
 		} else {
