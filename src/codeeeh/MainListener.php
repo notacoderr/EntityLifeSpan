@@ -3,28 +3,38 @@
 namespace codeeeh;
 
 use pocketmine\{
-	
-		plugin\PluginBase,
+
+	plugin\PluginBase,
 		
-		entity\object\ItemEntity,
+	entity\object\ItemEntity,
+	entity\projectile\Arrow,
 	
-		scheduler\Task,
-		utils\Config,
+	scheduler\Task,
+	utils\Config,
 	
-		event\Listener,
-		event\entity\ItemSpawnEvent
-		
+	event\Listener,
+	event\entity\ItemSpawnEvent
+
 	};;
 
 class MainListener extends PluginBase implements Listener
 {	
-	private $timer;
+	private $timer, $general = false;
 	
 	function onEnable() : void
 	{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveResource('timer.yml');
-		$this->timer = (new Config($this->getDataFolder() . "timer.yml", CONFIG::YAML))->getAll();
+		$cfg = new Config($this->getDataFolder() . "timer.yml", CONFIG::YAML);
+		if($cfg->get("general_mode"))
+		{
+			$this->general = true;
+			$this->timer = $cfg->get("general_timer");
+			$this->getServer()->getLogger()->info("General Mode activated");
+		} else {
+			$this->timer = $cfg->getNested("specific_timer");
+			$this->getServer()->getLogger()->info("Specific Mode activated");
+		}
 	}
 	
 	/**
@@ -37,15 +47,25 @@ class MainListener extends PluginBase implements Listener
 	{
 		if(($ent = $event->getEntity()) instanceof ItemEntity)
 		{
-			$itemName = strtolower( $ent->getItem()->getVanillaName() );
-			if( array_key_exists($itemName, $this->timer ) )
+			if($this->general)
 			{
 				$this
 				->getScheduler()
 				->scheduleDelayedTask
 				(
-					new selfDestruction($event->getEntity()), 20 * intval( $this->timer[$itemName] )
+					new selfDestruction($event->getEntity()), 20 * intval( $this->timer )
 				);
+			} else {
+				$itemName = strtolower( $ent->getItem()->getVanillaName() );
+				if( array_key_exists($itemName, $this->timer ) )
+				{
+					$this
+					->getScheduler()
+					->scheduleDelayedTask
+					(
+						new selfDestruction($event->getEntity()), 20 * intval( $this->timer[$itemName] )
+					);
+				}
 			}
 		}
 	}

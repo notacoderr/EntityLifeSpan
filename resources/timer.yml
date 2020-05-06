@@ -1,20 +1,26 @@
-#
-#item vanilla name: time
-#
-stone: 4
-cobblestone: 4
-grass: 2
-dirt: 2
-sand: 4
-gravel: 4
-netherrack: 4
-nether rack: 4
-#diamond block: 1 HAHAHHAHAH
-coal: 4
-charcoal: 4
-iron ingot: 7
-gold ingot: 9
-diamond: 15
-emerald: 15
-nether quartz: 7
-stick: 4
+#################
+# GENERAL MODE  #
+# true - all entities use same amount of time
+# false - item and time specific
+#################
+general_mode: true
+general_timer: 15
+
+specific_timer:
+  #vanilla name: time (in secs)
+  #diamond block: 1 HAHAHHAHAH
+  stone: 4
+  cobblestone: 4
+  grass: 2
+  dirt: 2
+  sand: 4
+  gravel: 4
+  nether rack: 4
+  coal: 4
+  charcoal: 4
+  iron ingot: 7
+  gold ingot: 9
+  diamond: 15
+  emerald: 15
+  nether quartz: 7
+  stick: 4
