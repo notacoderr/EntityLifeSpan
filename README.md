@@ -1,2 +1,2 @@
-# EntityLifeSpan
-**Add Lifespan per ENTITY**
+# ItemEntityLifeSpan
+**Add Lifespan per Item Entity**
