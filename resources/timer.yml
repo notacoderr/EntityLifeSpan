@@ -1,26 +1,30 @@
-#################
-# GENERAL MODE  #
-# true - all entities use same amount of time
-# false - item and time specific
-#################
-general_mode: true
-general_timer: 15
-
-specific_timer:
-  #vanilla name: time (in secs)
-  #diamond block: 1 HAHAHHAHAH
-  stone: 4
-  cobblestone: 4
-  grass: 2
-  dirt: 2
-  sand: 4
-  gravel: 4
-  nether rack: 4
-  coal: 4
-  charcoal: 4
-  iron ingot: 7
-  gold ingot: 9
-  diamond: 15
-  emerald: 15
-  nether quartz: 7
-  stick: 4
+###############################################################
+# MODES                                                       #
+# general - all dropped item entity has the same lifespan     #
+# specific - will use specific lifespan, ignores unlisted     #
+# mixed - same as specific but unlisted uses general lifespan #
+#                                                             #
+# projectile - for entities stuck on blocks (arrow, trident)  #
+# showname - (bool) makes the name of the entity visible      #
+###############################################################
+mode: 'general'
+showname: true
+lifespan:
+  projectile: 60
+  general: 15
+  specific:
+    stone: 4
+    cobblestone: 4
+    grass: 2
+    dirt: 2
+    sand: 4
+    gravel: 4
+    nether rack: 4
+    coal: 4
+    charcoal: 4
+    iron ingot: 7
+    gold ingot: 9
+    diamond: 15
+    emerald: 15
+    nether quartz: 7
+    stick: 4
