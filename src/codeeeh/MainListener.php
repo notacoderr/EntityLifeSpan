@@ -96,6 +96,10 @@ class MainListener extends PluginBase implements Listener
 			if($this->showname)
 			{
 				$item = $entity->getItem();
+				
+				/* var @itemname CustomName | VanillaName */
+				$itemname = $item->getName();
+
 				if($item instanceof Durable)
 				{
 					$durability = ceil(
@@ -121,8 +125,7 @@ class MainListener extends PluginBase implements Listener
 				} else {
 					if($item->getCount() > 1) 
 					{
-						$nametag = "⌥ {$itemname}" . TextFormat::RESET;
-						$nametag .= "\n⌥ Count: " . $item->getCount();
+						$nametag = "⌥ {$item->getCount()}x {$itemname}" . TextFormat::RESET;
 					} else {
 						$nametag = "⌥ {$itemname}";
 					}
